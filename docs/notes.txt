@@ -1,0 +1,18 @@
+Project Summary
+
+This project demonstrates a full DevOps pipeline:
+
+* Backend: .NET 8 API
+* Frontend: React application
+* Containerization: Docker
+* Orchestration: Kubernetes (Minikube)
+* Monitoring: Grafana dashboard
+
+Features:
+
+* API documented with Swagger
+* UI connected to API
+* Applications deployed using Kubernetes YAML files
+* Monitoring dashboard with 7 panels created in Grafana
+
+All components were tested and verified successfully.

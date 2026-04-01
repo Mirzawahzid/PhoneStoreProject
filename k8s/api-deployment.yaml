@@ -1,0 +1,20 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: phonestore-api
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: phonestore-api
+  template:
+    metadata:
+      labels:
+        app: phonestore-api
+    spec:
+      containers:
+      - name: api
+        image: phonestore-api
+        imagePullPolicy: Never
+        ports:
+        - containerPort: 80
