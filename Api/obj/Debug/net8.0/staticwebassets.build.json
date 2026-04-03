@@ -1,0 +1,11 @@
+{
+  "Version": 1,
+  "Hash": "1XNEFaATFNWqgbQTcCYgPDtU3+c4P6TEcnqPbO/eiHY=",
+  "Source": "PhoneStoreApi",
+  "BasePath": "_content/PhoneStoreApi",
+  "Mode": "Default",
+  "ManifestType": "Build",
+  "ReferencedProjectsConfiguration": [],
+  "DiscoveryPatterns": [],
+  "Assets": []
+}

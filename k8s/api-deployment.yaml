@@ -1,20 +1,68 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: phonestore-api
+  name: api-deployment
+  namespace: phonestore
 spec:
-  replicas: 1
+  replicas: 2
   selector:
     matchLabels:
-      app: phonestore-api
+      app: api
   template:
     metadata:
       labels:
-        app: phonestore-api
+        app: api
+      annotations:
+        prometheus.io/scrape: "true"
+        prometheus.io/port: "80"
+        prometheus.io/path: "/metrics"
     spec:
       containers:
-      - name: api
-        image: phonestore-api
-        imagePullPolicy: Never
-        ports:
-        - containerPort: 80
+        - name: api
+          image: phonestoreapi:latest
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 80
+
+          # ✅ ConfigMap usage
+          env:
+            - name: ASPNETCORE_ENVIRONMENT
+              valueFrom:
+                configMapKeyRef:
+                  name: app-config
+                  key: ENVIRONMENT
+
+            # ✅ Secrets usage
+            - name: ConnectionStrings__DefaultConnection
+              valueFrom:
+                secretKeyRef:
+                  name: app-secret
+                  key: DefaultConnection
+
+            - name: DB_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: app-secret
+                  key: DB_PASSWORD
+
+            - name: API_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: app-secret
+                  key: API_KEY
+
+          # ✅ Liveness Probe
+          livenessProbe:
+            httpGet:
+              path: /health
+              port: 80
+            initialDelaySeconds: 10
+            periodSeconds: 10
+
+          # ✅ Readiness Probe
+          readinessProbe:
+            httpGet:
+              path: /health
+              port: 80
+            initialDelaySeconds: 5
+            periodSeconds: 5

@@ -5,6 +5,7 @@ using PhoneStoreApi.Models;
 
 namespace PhoneStoreApi.Controllers;
 
+/// <summary>Manage phone products in the store inventory.</summary>
 [ApiController]
 [Route("api/[controller]")]
 public class ProductsController : ControllerBase
@@ -16,7 +17,10 @@ public class ProductsController : ControllerBase
         _config = config;
     }
 
+    /// <summary>Get all products</summary>
+    /// <remarks>Returns the full list of phones in the inventory.</remarks>
     [HttpGet]
+    [ProducesResponseType(typeof(IEnumerable<Product>), 200)]
     public async Task<IActionResult> GetProducts()
     {
         var connectionString = _config.GetConnectionString("DefaultConnection");
@@ -28,7 +32,11 @@ public class ProductsController : ControllerBase
         return Ok(products);
     }
 
+    /// <summary>Add a new product</summary>
+    /// <remarks>Creates a new phone entry in the inventory.</remarks>
     [HttpPost]
+    [ProducesResponseType(201)]
+    [ProducesResponseType(400)]
     public async Task<IActionResult> AddProduct(Product product)
     {
         var connectionString = _config.GetConnectionString("DefaultConnection");
@@ -40,10 +48,14 @@ public class ProductsController : ControllerBase
 
         await connection.ExecuteAsync(sql, product);
 
-        return Ok(new { message = "Product added successfully" });
+        return StatusCode(201, new { message = "Product added successfully" });
     }
 
+    /// <summary>Update a product</summary>
+    /// <param name="id">The product ID to update</param>
     [HttpPut("{id}")]
+    [ProducesResponseType(200)]
+    [ProducesResponseType(404)]
     public async Task<IActionResult> UpdateProduct(int id, Product product)
     {
         var connectionString = _config.GetConnectionString("DefaultConnection");
@@ -68,7 +80,11 @@ public class ProductsController : ControllerBase
         return Ok(new { message = "Product updated successfully" });
     }
 
+    /// <summary>Delete a product</summary>
+    /// <param name="id">The product ID to delete</param>
     [HttpDelete("{id}")]
+    [ProducesResponseType(200)]
+    [ProducesResponseType(404)]
     public async Task<IActionResult> DeleteProduct(int id)
     {
         var connectionString = _config.GetConnectionString("DefaultConnection");

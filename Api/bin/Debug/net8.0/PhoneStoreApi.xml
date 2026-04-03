@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>PhoneStoreApi</name>
+    </assembly>
+    <members>
+        <member name="T:PhoneStoreApi.Controllers.ProductsController">
+            <summary>Manage phone products in the store inventory.</summary>
+        </member>
+        <member name="M:PhoneStoreApi.Controllers.ProductsController.GetProducts">
+            <summary>Get all products</summary>
+            <remarks>Returns the full list of phones in the inventory.</remarks>
+        </member>
+        <member name="M:PhoneStoreApi.Controllers.ProductsController.AddProduct(PhoneStoreApi.Models.Product)">
+            <summary>Add a new product</summary>
+            <remarks>Creates a new phone entry in the inventory.</remarks>
+        </member>
+        <member name="M:PhoneStoreApi.Controllers.ProductsController.UpdateProduct(System.Int32,PhoneStoreApi.Models.Product)">
+            <summary>Update a product</summary>
+            <param name="id">The product ID to update</param>
+        </member>
+        <member name="M:PhoneStoreApi.Controllers.ProductsController.DeleteProduct(System.Int32)">
+            <summary>Delete a product</summary>
+            <param name="id">The product ID to delete</param>
+        </member>
+    </members>
+</doc>
